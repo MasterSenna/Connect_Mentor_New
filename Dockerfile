@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Etapa de construção
 FROM maven:3.8.1-openjdk-17 AS build
 
@@ -26,7 +26,7 @@ EXPOSE 8080
 
 # Comando para executar a aplicação
 CMD ["java", "-jar", "app.jar"]
-=======
+
 # Use an official Maven image to build the project
 FROM maven:3.8.1-openjdk-17 AS build
 WORKDIR /app
@@ -52,4 +52,4 @@ EXPOSE 8080
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
->>>>>>> 07b2bbd7c8d57232350210c70b6af5fa8440f241
+
