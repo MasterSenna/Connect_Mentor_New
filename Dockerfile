@@ -1,32 +1,3 @@
-
-# Etapa de construção
-FROM maven:3.8.1-openjdk-17 AS build
-
-# Define o diretório de trabalho
-WORKDIR /app
-
-# Copia os arquivos de configuração do Maven e o código-fonte
-COPY pom.xml .
-COPY src ./src
-
-# Compila o aplicativo
-RUN mvn -e -B -DskipTests clean package
-
-# Etapa de execução
-FROM openjdk:17-jdk-slim
-
-# Define o diretório de trabalho
-WORKDIR /app
-
-# Copia o artefato construído da etapa anterior
-COPY --from=build /app/target/*.jar app.jar
-
-# Expor a porta da aplicação
-EXPOSE 8080
-
-# Comando para executar a aplicação
-CMD ["java", "-jar", "app.jar"]
-
 # Use an official Maven image to build the project
 FROM maven:3.8.1-openjdk-17 AS build
 WORKDIR /app
@@ -39,7 +10,7 @@ COPY src ./src
 RUN mvn -e -B -DskipTests clean package -Dfile.encoding=UTF-8
 
 # Use an official OpenJDK 17 runtime as a parent image
-FROM openjdk:17-jre-slim
+FROM openjdk:17-jdk-slim
 
 # Set the working directory
 WORKDIR /app
@@ -52,4 +23,3 @@ EXPOSE 8080
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
-
